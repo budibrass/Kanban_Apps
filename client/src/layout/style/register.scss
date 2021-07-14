@@ -1,0 +1,31 @@
+.site-layout {
+    min-height: 100vh;
+    
+    .site-layout-background {
+
+        h1 {
+            text-align: center;
+            padding-top: 10vh;
+            font-size: 50px;
+            color: "black";
+            font-family: "Tourney";
+            margin-bottom: 1vh;
+        }
+
+        .body-register {
+            padding-top: 5vh;
+            justify-content: center;
+
+            .img-register {
+                padding-right: 10px;
+            }
+            .card-form {
+                border-radius: 15px;
+                border-color: "gray"; 
+                text-align: center;
+                font-family: cursive;
+                font-size: 26px;
+            }
+        }
+    }
+}

@@ -1,0 +1,63 @@
+body {
+    .main-layout {
+        height: 100vh;
+        overflow-y: scroll;
+        box-sizing: border-box;
+
+        .header {
+            position: fixed;
+            z-Index: 1; 
+            width: 100%;
+
+            .title {
+                text-align: center;
+                color: white;
+                line-height: 1.5;
+            }
+        }
+
+        .site-layout {
+            padding: 0 50;
+            
+            .site-layout-background {
+                height: 89vh;
+                padding: 0 100px; 
+                padding-top: 10vh;
+
+                .site-card-border-less-wrapper {
+                    border-radius: 5px;
+                    background-color: white;
+                    overflow-y: scroll;
+                    height: 80vh;
+                    box-shadow: 5px 8px 24px 5px rgba(208, 216, 243, 0.6);
+
+                    .backlog-card{
+                        text-align: center; 
+                        border-radius: 10px; 
+                        background-color: #f8c3d5;
+                        margin-top: 10px
+                    }
+
+                    .progres-card{
+                        text-align: center; 
+                        border-radius: 10px; 
+                        background-color: #abfcb1;
+                        margin-top: 10px
+                    }
+
+                    .done-card{
+                        text-align: center; 
+                        border-radius: 10px; 
+                        background-color: #fcd771;
+                        margin-top: 10px
+                    }
+                }
+            }
+        }
+
+        .footer {
+            text-align: center;
+            align-items: bottom;            
+        }
+    }
+}

@@ -1,0 +1,53 @@
+.main {
+    height: 100vh;
+
+    .header {
+        position: fixed;
+        z-index: 1;
+        width: 100%;
+
+        .ant-typography {
+            margin-bottom: 0.5em;
+            font-weight: 600;
+            font-size: 38px;
+            line-height: 1.5;
+        }
+
+        .title {
+            text-align: center;
+            color: white;
+        }
+    }
+
+    .site-layout {
+        padding: 0 50px;
+        margin-top: 64px;
+        // box-sizing: border-box;
+
+        .site-layout-background{
+            padding: 24px;
+            min-height: 380px;
+
+            .card {
+                border-radius: 5px;
+                background-color: white;
+                overflow-y: scroll;
+                height: 75vh;
+                box-shadow: 5px 8px 24px 5px rgba(208, 216, 243, 0.6);
+
+                .main-card {
+                    text-align: center; 
+                    border-radius: 10px; 
+                    background-color: #f8c3d5; 
+                    margin-top: 10px;
+
+                    .next-button {
+                        margin-top: 3;
+                        margin-left: 3;
+                        background-color: gray;
+                    }
+                }
+            }
+        }
+    }
+}

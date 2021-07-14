@@ -1,69 +1,33 @@
-// import React, { useState } from 'react';
-// import { Modal, Button, Form, Input } from 'antd';
-// import { useForm } from 'antd/lib/form/Form';
+import React from 'react';
+import { Modal, Form, Input } from 'antd';
 
-// const App = () => {
-//     const [form] = Form.useForm();
-//     const [isModalVisible, setIsModalVisible] = useState(false);
+const App = ({ title, visible, onOk, onCancel, form}) => {
+    // const [form] = Form.useForm();
 
-//     const showModal = () => {
-//         setIsModalVisible(true);
-//     };
+    return(
+        <>
+        <Modal title={title} visible={visible} onOk={onOk} onCancel={onCancel}>
+            <Form 
+                name="basic"
+                labelCol={{
+                    span: 6,
+                }}
+                wrapperCol={{
+                    span: 24,
+                }}
+                form={form}
+                layout="vertical"
+            >
+                <Form.Item label="Title" name="title" >
+                    <Input width="100%" />
+                </Form.Item>
+                <Form.Item label="Batas Waktu" name="due_date" >
+                    <Input type="date" />
+                </Form.Item>
+            </Form>
+        </Modal>
+        </>
+    )
+};
 
-//     const handleOk = () => {
-//         setIsModalVisible(false);
-//     };
-
-//     const handleCancel = () => {
-//         setIsModalVisible(false);
-//     };
-
-//     return (
-//         <>
-//         <Button type="primary" onClick={showModal}>
-//             Open Modal
-//         </Button>
-//         <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-//         <Form
-//             name="basic"
-//             labelCol={{
-//                 span: 6,
-//             }}
-//             wrapperCol={{
-//                 span: 16,
-//             }}
-//             form={form}
-//             onFinish={login}
-//             >
-//             <Form.Item
-//                 label="email"
-//                 name="email"
-//             >
-//             <Input />
-//             </Form.Item>
-
-//             <Form.Item
-//                 label="Password"
-//                 name="password"
-//             >
-//             <Input.Password />
-//             </Form.Item>
-
-//             <Form.Item
-//                 // wrapperCol={{
-//                 // offset: 8,
-//                 // span: 16,
-//                 // }}
-//             >
-//                 <Button style={{width : "150%"}} type="primary" htmlType="submit">
-//                 Submit
-//                 </Button>
-//             </Form.Item>
-//                 <label>Don't have account ? <Link to="/register">Register</Link></label>
-//             </Form>
-//         </Modal>
-//         </>
-//     );
-// };
-
-// export default App;
+export default App;

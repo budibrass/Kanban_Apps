@@ -5,9 +5,10 @@ import Gbr from '../assests/register.svg';
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import "./style/register.scss"
 
 const App = () => {
-    const { Content } = Layout;
+    const { Content, Footer } = Layout;
     const [form] = Form.useForm();
     const history = useHistory();
 
@@ -34,39 +35,20 @@ const App = () => {
         <>
         <Layout>
             <Content className="site-layout">
-                <div className="site-layout-background" style={{ minHeight: '100vh' }}>
-                <h1 style={{
-                        textAlign: "center",
-                        paddingTop: "10vh",
-                        fontSize: "50px",
-                        color: "black",
-                        fontFamily: "Tourney",
-                        marginBottom: "1vh"
-                    }}
-                >
-                    Welcome to Kanban APPS
-                </h1>
-                <Row>
+                <div className="site-layout-background">
+                <h1>Welcome to Kanban APPS</h1>
+                <Row className="head-title">
                     <Col span={8}></Col>
                     <Col span={8}>
                         <Divider style={{ borderColor: "black", width: "60%"}} />
                     </Col>
                 </Row>
-                <Row style={{paddingTop: '5vh'}} justify="center">
+                <Row className="body-register">
                     <Col span={8}>
-                    <Image src={Gbr} style={{ paddingRight: "10px" }} />
+                        <Image className="img-register" src={Gbr} />
                     </Col>
                     <Col span={8}>
-                        <Card 
-                            style={{ 
-                                borderRadius : "15px", 
-                                borderColor: "gray", 
-                                textAlign: "center", 
-                                fontFamily: 'cursive',
-                                fontSize: "26px" 
-                            }} 
-                            title="Register"
-                        >
+                        <Card className="card-form" title="Register">
                         <Form
                             name="basic"
                             form={form}
@@ -104,14 +86,9 @@ const App = () => {
                             <Input.Password />
                             </Form.Item>
 
-                            <Form.Item
-                                // wrapperCol={{
-                                // offset: 8,
-                                // span: 16,
-                                // }}
-                            >
+                            <Form.Item>
                                 <Button style={{width : "150%"}} type="primary" htmlType="submit">
-                                Submit
+                                    Submit
                                 </Button>
                             </Form.Item>
                                 <label>Don't have account ? <Link to="/login">Login</Link></label>
@@ -120,7 +97,7 @@ const App = () => {
                     </Col>
                 </Row>
                 </div>
-            {/* <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer> */}
+            <Footer style={{ textAlign: 'center' }}>Kanban Apps By Budibrass</Footer>
             </Content>
         </Layout>
         </>
