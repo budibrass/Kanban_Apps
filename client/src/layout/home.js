@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Layout, Typography, Row, Col, Form} from 'antd';
+import { Layout, Typography, Row, Col, Form, Modal} from 'antd';
 import { PlusCircleTwoTone } from '@ant-design/icons';
 import axios from 'axios';
-import './home.css';
+import './style/home.css';
 import './style/home.scss';
 import CardBacklog from './component/cardBacklog';
 import CardProgres from './component/cardProgres';
@@ -10,16 +10,20 @@ import CardDone from './component/cardDone';
 import moment from  'moment';
 import ModalForm from './component/modal';
 import ModalDetail from './component/modalDetail';
+import { useHistory } from 'react-router-dom';
 
 const { Title } = Typography;
 const baseUrl = `http://localhost:3000`;
+const { confirm } = Modal;
 
 const App = () => {
     const [form] = Form.useForm();
+    const history = useHistory();
     const { Header, Content, Footer } = Layout;
     const [dataKanban, setDataKanban] = useState([]);
     const [modal, setModal] = useState({ visible: false, title: '', data: {} });
     const [modalDetail, setModalDetail] = useState({ visible: false, title: '', data: {} });
+    const [startDate, setStartDate] = useState(moment());
 
     const loadDataSource = async () => {
         try {
@@ -34,8 +38,12 @@ const App = () => {
     };
 
     const handleModalAdd = () => {
-        form.resetFields()
-        setModal({ ...modal, visible: true, title: "Add Task" });
+        if(!localStorage.token) {
+            history.push("/login")
+        } else {
+            form.resetFields()
+            setModal({ ...modal, visible: true, title: "Add Task" });
+        }
     };
 
     const toOnProgres = async (id) => {
@@ -74,20 +82,28 @@ const App = () => {
         }
     };
 
-    const handleDelete = async (id) => {
-        try {
-            const data =  await axios({
-                url: `${baseUrl}/kanban/${id}`,
-                method: `DELETE`,
-                headers: {
-                    token: localStorage.token
-                }
-            })
-            
-            if(data) loadDataSource();
-        } catch (error) {
-            console.log(error, `<<<<<<<<<< error delete data`);
-        }
+    const handleDelete = (id) => {
+        confirm({
+            title: 'Do you Want to delete these items?',
+            onOk() {
+                axios({
+                    url: `${baseUrl}/kanban/${id}`,
+                    method: `DELETE`,
+                    headers: {
+                        token: localStorage.token
+                    }
+                })
+                .then((data) => {
+                    loadDataSource();
+                })
+                .catch((err) => {
+                    console.log(err, `<<<<<<<<<< error delete data`);
+                })
+            },
+            onCancel() {
+                setModal({ ...modal, visible: false})
+            },
+        });
     };
 
     const handleOk = async () => {
@@ -106,7 +122,7 @@ const App = () => {
                     },
                     data: {
                         title: dataForm.title,
-                        due_date: dataForm.due_date
+                        // due_date: dataForm.due_date
                     }
                 })
 
@@ -124,7 +140,7 @@ const App = () => {
                 if(data) loadDataSource();
             }
         } catch (error) {
-            console.log(error, `<<<<<<<<<<< error handle OK`);
+            console.log(error.msg, `<<<<<<<<<<< error handle OK`);
         }
         setModal({ ...modal, visible : false});
     };
@@ -143,7 +159,7 @@ const App = () => {
             if(data) {
                 let payload = {
                     ...data.data.data,
-                    due_date: moment(data.data.data.due_date).format(`yyyy-MM-DD`)
+                    due_date: moment(data.data.data.due_date)
                 }
                 myForm.setFieldsValue(payload);
                 setModal({ ...modal, visible: true, data: payload, title: "Edit Task" });
@@ -171,6 +187,10 @@ const App = () => {
         .catch((err) => {
             console.log(err, `<<<<<<<< error detail data`);
         })
+    };
+
+    const handleDisableDate = (current) => {
+        return current && current < startDate;
     };
 
     const handleCancel = () => {
@@ -243,6 +263,7 @@ const App = () => {
                 onOk={handleOk} 
                 onCancel={handleCancel} 
                 form={form}
+                handleDisableDate={handleDisableDate}
             />
             <ModalDetail 
                 title={modalDetail.title}

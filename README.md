@@ -1,53 +1,117 @@
 # Kanban_Apps
+Disini saya membuat Web Apps bernama Kanban Apps, yang dimana saya membuatnya secara Fullstack dari :
+- Back End :
+    - Database (postgres)
+    - Server Api
+- Front End : 
+    - Custom Desain Ant-Design
+    - framewrok react js
+    - SPA (Single Page Application)
 
-## Buatlah aplikasi Kanban menggunakan client-server model dengan spesifikasi sebagai berikut:
-- API Documentation (server) yang meliputi:
-- URL(s)
-- HTTP Method
-- Request
-- Response (success dan error)
-- Membuat routes sesuai standar REST API
-- CRUD endpoints untuk Task, dimana minimal inputnya memiliki:
-    - title
-    - category
-- Register dan Login dimana minimal field untuk user memiliki:
-    - Email
-    - Password
-    - Organization (default hacktiv8)
-- Atribut Organization pada User, berisikan default value “Hacktiv8”. Atribut ini ditambahkan pada server sehingga akan terinput secara otomatis ketika user baru didaftarkan dan default value tidak boleh diubah dengan value lain selain “Hacktiv8”.
-(Note: Untuk case ini kegunaan organization tersebut akan terlihat ketika kalian mengerjakan socket. Ketika terjadi perubahan pada task, maka semua user yang online dan 1 organisasi akan dapat melihat perubahannya. Jika ada pertanyaan lebih lanjut mengenai hal ini, bisa tanyakan instruktur :) )
-- Membuat authorization sehingga user hanya bisa melakukan Update dan Delete terhadap task-nya sendiri
-- Melakukan Read pada semua card yang tersedia(authentication)
-- Social Login (Google/Twitter/Facebook/GitHub)
-- Vue component minimal Task dan Category
-- No alert()!!!
-- Deploy to Heroku (server) + Firebase (client) Hosting
+## Framework and Package
+### Back End
+- express
+- pg
+- sequelize
+- sequelize-cli
+- jsonwebtoken
+- bcryptjs
+- cors
+- dotenv
 
-## Rocket 🚀
-Challenge nya masih kurang? Coba kerjain ini!
-- Buat Kanban Board kamu menjadi real time menggunakan socket.io
-- Dragable
-- Project
-- Dynamic category
+### Front End
+- react js
+- antd
+- moment js
+- node-sass
+- react-dom
+- react-router
+- react-router-dom
 
-## Kompetensi Backend
-- REST API
-- API Documentation
-- Auth
-- PostgreSQL + Sequelize + Express
+## Task
+Buatlah aplikasi Kanban menggunakan client-server model dengan spesifikasi sebagai berikut :
 
-## Kompetensi Client
-- Vue.js
-- SPA (Single Page Application)
-- Vue Component
-De
+- Release 0 :
+    - Membuat routes sesuai standar REST API
 
-## Deadline
-- Week 2 - Jumat 23:59
+    - Res Status
+        - Jika berhasil res.status 201 dan mengembalikan res.body data object
+        - Jika gagal karena validasi maka res.status 400, dan respon body nya berupa object yang berisikan validation errors
+        - Jika req gagal karena kesalahan server maka res.status sesuaikan dengan kesalahanya masing - masing
+    
+- Release 1 :
+    - Menampilkan semua data dari TODO
+        - Jika berhasil kembalikan res.status 200, dan res.body nya array of object dari semua data Kanban
+        - Jika gagal, res.status disesuaikan dengan error handling
+        - Untuk melihat daftar Task tidak perlu Login dulu, ketika API diakses maka bisa langsung bisa didapatkan semua data
 
-## Contoh
-https://kamvan-6aa69.firebaseapp.com/
-https://kanban-83af9.firebaseapp.com/
+- Release 2 :
+    - Menampilkan detail Task KANAN berdasarkan ID 
+        - Jika berhasil res.status 200, dan res.body data TODO berdasarkan ID yang diinputkan
+        - Jika gagal, res.status disesuaikan dengan error handling
 
-## Submission
-Fork dari organization, lalu open pull request dengan title NAMA LENGKAP KAMU (ex: Dimitri Wahyudiputra) dan assign ke buddy kamu. Tambahkan comment yang berisi environment variables yang dipakai (beserta valuenya), link deploy, fitur tambahannya apa dan kendala saat mengerjakan.
+- Release 3 :
+    - Add Task
+        - Endpoint (WAJIB VALIDASI)
+            - title
+            - category
+            - due_date (tidak bisa melewati hari yg kemarin)
+        - Jika berhasil res.status 201
+        - Data task didapatkan dari body yang diinputkan
+        - Untuk tanggap tidak boleh mengambil tanggal yang telah dilewati hari ini
+        - Jika gagal, res.status disesuaikan dengan error handling
+
+
+- Release 4 :
+    - Mengedit data Task Kanban
+        - Endpoint (WAJIB VALIDASI)
+            - title
+            - category
+            - due_date (tidak bisa melewati hari yg kemarin)
+        
+        - Res Status
+            - Jika berhasil res.status 201, dan res.body data yang berhasil di update
+            - Jika gagal, res.status disesuaikan dengan error handling
+        
+        - Data task didapatkan dari body yang diinputkan
+        - Untuk tanggap tidak boleh mengambil tanggal yang telah dilewati hari ini
+    
+- Release 5 :
+    - Menghapus data Task Kanban
+        - Keluarkan notif confirm ketika akan menghapus pesan
+        - Jika gagal, res.status disesuaikan dengan error handling
+
+- Release 6 :
+    - Buatlah error handling untuk semua error
+    - Untuk register akun baru, data password yang dibalikkan ke database sudah harus di `HASH` 
+
+# Getting Started
+Hal yang perlu dilakukan untuk memulai Aplikasi Web :
+
+- Pastikan di komputer kamu telah terinstal Postgres
+- clone this repository
+- cd Fancy-Todo-s
+- Back End : 
+    - Masuk ke folder server
+    - npm install
+    - Masuk ke folder config, lalu ubah settingan sesuai dengan di laptop / komputer kamu
+        ```JavaScript
+            "development": {
+                "username": "postgres",
+                "password": "postgres",
+                "database": "git_kanban_apps",
+                "host": "localhost",
+                "dialect": "postgres"
+            },
+        ```
+    - npx sequelize db:create
+    - npx sequelize db:migrate
+    - git checkout -b yourbranch
+    - npx nodemon app.js
+    - Kamu bisa jalankan program di http://localhost:3000/, untuk testing server bisa menggunakan postman, silahkan pelajarai postman di internet. Jika tidak ingin testing juga tidak masalah.
+
+- Front End :
+    - Masuk ke folder Client
+    - Yarn install (intall yarn secara global dulu jika baru pertama kali menggunakan YARN, panduan bisa cek di google)
+    - Program akan berjalan di port yang telah disesuaikan
+    - Selamat menjalankan DEMO Program 
